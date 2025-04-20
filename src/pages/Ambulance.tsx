@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,41 +7,23 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Ambulance as AmbulanceIcon, Loader2, MapPin, Phone } from "lucide-react";
 import { toast } from "sonner";
+import { useLocation } from "@/hooks/useLocation";
 
 const Ambulance = () => {
+  const { location, isLoading: isLoadingLocation, getCurrentLocation } = useLocation();
   const [isRequestingAmbulance, setIsRequestingAmbulance] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
-  const [userLocation, setUserLocation] = useState<{lat: number; lng: number} | null>(null);
   const [address, setAddress] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
 
-  useEffect(() => {
-    // Get user's current location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setUserLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
-          
-          // In a real app, you would reverse geocode to get the address
-          // For demo purposes, we'll just set a placeholder
-          setAddress("123 Current Location St, City, State");
-        },
-        (error) => {
-          console.error("Error getting location:", error);
-          toast.error("Could not access your location", {
-            description: "Please enable location services or enter your address manually.",
-          });
-        }
-      );
-    } else {
-      toast.error("Geolocation is not supported by your browser");
-    }
-  }, []);
-
   const handleRequestAmbulance = () => {
+    if (!location && !address) {
+      toast.error('Location is required', {
+        description: 'Please enable location services or enter your address manually.'
+      });
+      return;
+    }
+
     setIsRequestingAmbulance(true);
     
     // Simulate API call
@@ -87,7 +68,7 @@ const Ambulance = () => {
                     <div className="flex items-center gap-2">
                       <Input 
                         id="location" 
-                        value={address}
+                        value={address || (location ? location.address : '')}
                         onChange={(e) => setAddress(e.target.value)}
                         placeholder="Enter your current address"
                         className="flex-grow"
@@ -95,28 +76,11 @@ const Ambulance = () => {
                       <Button 
                         variant="outline"
                         className="border-medimate-primary text-medimate-primary shrink-0"
-                        onClick={() => {
-                          if (navigator.geolocation) {
-                            navigator.geolocation.getCurrentPosition(
-                              (position) => {
-                                setUserLocation({
-                                  lat: position.coords.latitude,
-                                  lng: position.coords.longitude
-                                });
-                                setAddress("123 Current Location St, City, State");
-                                toast.success("Location updated", {
-                                  description: "Using your current location."
-                                });
-                              },
-                              (error) => {
-                                toast.error("Could not access your location");
-                              }
-                            );
-                          }
-                        }}
+                        onClick={getCurrentLocation}
+                        disabled={isLoadingLocation}
                       >
                         <MapPin className="h-4 w-4 mr-1" />
-                        Use My Location
+                        {isLoadingLocation ? 'Getting Location...' : 'Use My Location'}
                       </Button>
                     </div>
                   </div>
