@@ -1,30 +1,39 @@
 
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Layout from "@/components/layout/Layout";
+import { UserRound } from "lucide-react";
 
 const AiDoctor = () => {
   return (
     <Layout>
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8 text-center">AI Doctor Assistant</h1>
-          
-          <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
-            <div className="bg-medimate-primary text-white p-4">
-              <h2 className="text-xl font-semibold">Health Consultation</h2>
-              <p className="text-sm text-white/80">
-                Chat with our AI doctor for medical assistance
-              </p>
-            </div>
+          <Card className="border-0 shadow-lg overflow-hidden bg-gradient-to-br from-white to-blue-50">
+            <CardHeader className="bg-medimate-primary bg-opacity-90 text-white space-y-2">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-white/20 rounded-full">
+                  <UserRound className="w-6 h-6" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl">AI Doctor Assistant</CardTitle>
+                  <CardDescription className="text-white/80">
+                    Chat with our AI doctor for medical assistance
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
             
-            <div className="h-[600px] w-full">
-              <iframe 
-                src="https://ai-doctor-chatbot-1ryw.onrender.com/"
-                className="w-full h-full"
-                style={{ border: 'none' }}
-                title="AI Doctor Chatbot"
-              />
-            </div>
-          </div>
+            <CardContent className="p-0">
+              <div className="h-[600px] w-full">
+                <iframe 
+                  src="https://ai-doctor-chatbot-1ryw.onrender.com/"
+                  className="w-full h-full"
+                  style={{ border: 'none' }}
+                  title="AI Doctor Chatbot"
+                />
+              </div>
+            </CardContent>
+          </Card>
           
           <div className="mt-6 text-sm text-gray-600 text-center">
             <p>
