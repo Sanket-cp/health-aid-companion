@@ -27,13 +27,13 @@ export const useLocation = () => {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         try {
-          const { latitude, lng } = position.coords;
+          const { latitude, longitude } = position.coords;
           // Here we would normally use Google's Geocoding API to get the address
           // For now, we'll just use coordinates
           setLocation({
             lat: latitude,
-            lng: position.coords.longitude,
-            address: `${latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`
+            lng: longitude,
+            address: `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`
           });
           toast.success('Location updated successfully');
         } catch (error) {
