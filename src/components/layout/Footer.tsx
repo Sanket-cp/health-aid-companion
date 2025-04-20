@@ -1,6 +1,5 @@
-
 import { Link } from "react-router-dom";
-import { MedicalBag } from "lucide-react";
+import { Heart } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -9,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <MedicalBag className="h-6 w-6 text-medimate-primary" />
+              <Heart className="h-6 w-6 text-medimate-primary" />
               <span className="text-xl font-bold text-gray-800">MediMate</span>
             </div>
             <p className="text-gray-600">

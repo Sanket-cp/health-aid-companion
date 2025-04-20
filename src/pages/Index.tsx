@@ -3,7 +3,7 @@ import Layout from "@/components/layout/Layout";
 import FeatureCard from "@/components/home/FeatureCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { MedicalBag, Phone, Calendar, Shield, Ambulance, MessageSquare } from "lucide-react";
+import { Heart, Phone, Calendar, Shield, Ambulance, MessageSquare } from "lucide-react";
 
 const Index = () => {
   return (
@@ -88,7 +88,7 @@ const Index = () => {
               color="bg-medimate-emergency"
             />
             <FeatureCard 
-              icon={<MedicalBag size={24} />}
+              icon={<Heart size={24} />}
               title="Health Profile"
               description="Maintain your complete health profile, medical history, and preferences in one secure place."
               linkTo="/settings"

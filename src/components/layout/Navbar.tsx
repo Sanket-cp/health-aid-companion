@@ -1,6 +1,5 @@
-
 import { Link } from "react-router-dom";
-import { MedicalBag, Calendar, Shield, Ambulance, Settings, Menu, X } from "lucide-react";
+import { Heart, Calendar, Shield, Ambulance, Settings, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -11,7 +10,7 @@ const Navbar = () => {
     <nav className="bg-white shadow-md py-3 px-4 fixed w-full top-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
-          <MedicalBag className="h-6 w-6 text-medimate-primary" />
+          <Heart className="h-6 w-6 text-medimate-primary" />
           <span className="text-xl font-bold text-gray-800">MediMate</span>
         </Link>
 
@@ -79,7 +78,7 @@ const Navbar = () => {
               className="flex items-center gap-2 text-gray-700 hover:text-medimate-primary transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              <MedicalBag className="h-5 w-5" />
+              <Heart className="h-5 w-5" />
               AI Doctor
             </Link>
             <Link 

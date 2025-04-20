@@ -94,12 +94,19 @@ const Bookings = () => {
     setDate(undefined);
   };
 
+  const handleTabChange = (value: string) => {
+    if (value === "book") {
+      // No need to directly manipulate DOM elements
+      // Just switch to the booking tab
+    }
+  };
+
   return (
     <Layout>
       <div className="container mx-auto px-4">
         <h1 className="text-3xl font-bold mb-8 text-center">Health Checkup Bookings</h1>
         
-        <Tabs defaultValue="upcoming" className="max-w-4xl mx-auto">
+        <Tabs defaultValue="upcoming" className="max-w-4xl mx-auto" onValueChange={handleTabChange}>
           <TabsList className="grid grid-cols-2 w-full">
             <TabsTrigger value="upcoming">Upcoming Appointments</TabsTrigger>
             <TabsTrigger value="book">Book New Appointment</TabsTrigger>

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { MedicalBag } from "lucide-react";
+import { Heart } from "lucide-react";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -58,7 +58,7 @@ const Register = () => {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2">
-            <MedicalBag className="h-8 w-8 text-medimate-primary" />
+            <Heart className="h-8 w-8 text-medimate-primary" />
             <span className="text-2xl font-bold text-gray-800">MediMate</span>
           </Link>
         </div>
