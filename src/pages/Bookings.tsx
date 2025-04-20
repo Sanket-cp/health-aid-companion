@@ -95,9 +95,14 @@ const Bookings = () => {
   };
 
   const handleTabChange = (value: string) => {
-    if (value === "book") {
-      // No need to directly manipulate DOM elements
-      // Just switch to the booking tab
+    // No direct DOM manipulation needed
+  };
+
+  // Function to navigate to book tab
+  const navigateToBookTab = () => {
+    const bookTab = document.querySelector('[data-value="book"]') as HTMLElement;
+    if (bookTab) {
+      bookTab.click();
     }
   };
 
@@ -179,7 +184,7 @@ const Bookings = () => {
                   <p className="text-gray-500">You don't have any upcoming appointments.</p>
                   <Button 
                     className="mt-4 bg-medimate-primary hover:bg-medimate-secondary"
-                    onClick={() => document.querySelector('[data-value="book"]')?.click()}
+                    onClick={navigateToBookTab}
                   >
                     Book Your First Appointment
                   </Button>
