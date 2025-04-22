@@ -22,13 +22,12 @@ const ChatInterface = () => {
     setInput('');
     
     // Add user message to chat
-    const timestamp = new Date();
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
     try {
-      // Make API request to Gemini - using API key directly (note: should be moved to backend in production)
-      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyCe5kmS-XETYV9jN7oGn1Zbz4k65a1MyUo', {
+      // Updated Gemini API endpoint - using the proper endpoint format
+      const response = await fetch('https://generativelanguage.googleapis.com/v1/models/gemini-1.0-pro:generateContent?key=AIzaSyCe5kmS-XETYV9jN7oGn1Zbz4k65a1MyUo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
