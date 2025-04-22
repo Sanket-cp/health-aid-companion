@@ -27,12 +27,11 @@ const ChatInterface = () => {
     setIsLoading(true);
 
     try {
-      // Make API request to Gemini
-      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent', {
+      // Make API request to Gemini - using API key directly (note: should be moved to backend in production)
+      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyCe5kmS-XETYV9jN7oGn1Zbz4k65a1MyUo', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer AIzaSyCe5kmS-XETYV9jN7oGn1Zbz4k65a1MyUo`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           contents: [{
