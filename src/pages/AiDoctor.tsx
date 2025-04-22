@@ -2,6 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Layout from "@/components/layout/Layout";
 import { UserRound } from "lucide-react";
+import ChatInterface from "@/components/ai-doctor/ChatInterface";
 
 const AiDoctor = () => {
   return (
@@ -17,21 +18,14 @@ const AiDoctor = () => {
                 <div>
                   <CardTitle className="text-xl">AI Doctor Assistant</CardTitle>
                   <CardDescription className="text-white/80">
-                    Chat with our AI doctor for medical assistance
+                    Your personal AI health assistant
                   </CardDescription>
                 </div>
               </div>
             </CardHeader>
             
             <CardContent className="p-0">
-              <div className="h-[600px] w-full">
-                <iframe 
-                  src="https://ai-doctor-chatbot-1ryw.onrender.com/"
-                  className="w-full h-full"
-                  style={{ border: 'none' }}
-                  title="AI Doctor Chatbot"
-                />
-              </div>
+              <ChatInterface />
             </CardContent>
           </Card>
           
