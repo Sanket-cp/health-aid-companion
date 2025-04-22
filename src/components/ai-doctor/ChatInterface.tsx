@@ -1,6 +1,10 @@
+
 import { useState } from 'react';
 import { Send, Mic } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import ChatMessage from './ChatMessage';
 
 const ChatInterface = () => {
   const [messages, setMessages] = useState<Array<{ role: 'user' | 'assistant', content: string }>>([
@@ -8,6 +12,7 @@ const ChatInterface = () => {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,10 +20,14 @@ const ChatInterface = () => {
 
     const userMessage = input.trim();
     setInput('');
+    
+    // Add user message to chat
+    const timestamp = new Date();
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
     try {
+      // Make API request to Gemini
       const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent', {
         method: 'POST',
         headers: {
@@ -34,6 +43,12 @@ const ChatInterface = () => {
         })
       });
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('API Error:', errorData);
+        throw new Error(`API error: ${response.status} - ${errorData?.error?.message || 'Unknown error'}`);
+      }
+
       const data = await response.json();
       
       if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
@@ -45,9 +60,19 @@ const ChatInterface = () => {
         throw new Error('Invalid response format');
       }
     } catch (error) {
+      console.error('Chat error:', error);
+      
+      // Show toast notification
+      toast({
+        title: "Connection Error",
+        description: "Could not connect to AI service. Please try again later.",
+        variant: "destructive"
+      });
+      
+      // Add fallback response to chat
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: "I apologize, but I'm having trouble processing your request right now. Please try again later."
+        content: "I apologize, but I'm having trouble connecting to the AI service right now. This might be due to API key issues or service availability. Please try again later or contact support if the issue persists."
       }]);
     } finally {
       setIsLoading(false);
@@ -88,16 +113,18 @@ const ChatInterface = () => {
 
       <form onSubmit={handleSubmit} className="p-4 border-t">
         <div className="flex gap-2">
-          <input
+          <Input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your message..."
-            className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-medimate-primary"
+            className="flex-1"
+            disabled={isLoading}
           />
           <Button 
             type="submit"
             className="bg-medimate-primary hover:bg-medimate-secondary"
+            disabled={isLoading}
           >
             <Send className="w-5 h-5" />
           </Button>
@@ -105,6 +132,7 @@ const ChatInterface = () => {
             type="button" 
             variant="outline"
             className="border-medimate-primary text-medimate-primary hover:bg-medimate-light"
+            disabled={isLoading}
           >
             <Mic className="w-5 h-5" />
           </Button>
