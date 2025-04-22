@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Send, Mic } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -19,14 +18,40 @@ const ChatInterface = () => {
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer AIzaSyCe5kmS-XETYV9jN7oGn1Zbz4k65a1MyUo`
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: `You are a helpful AI health assistant. Always remind users that you can only provide general information and they should consult healthcare professionals for medical advice. User query: ${userMessage}`
+            }]
+          }]
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        setMessages(prev => [...prev, { 
+          role: 'assistant', 
+          content: data.candidates[0].content.parts[0].text
+        }]);
+      } else {
+        throw new Error('Invalid response format');
+      }
+    } catch (error) {
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: "I'm a demo AI doctor. In a real implementation, I would process your query and provide medical information. Please note that I can only provide general health information and cannot replace professional medical advice." 
+        content: "I apologize, but I'm having trouble processing your request right now. Please try again later."
       }]);
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (
