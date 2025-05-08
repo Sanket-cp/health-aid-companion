@@ -27,8 +27,7 @@ const ChatMessage = ({ message, isUser, timestamp }: ChatMessageProps) => {
         {isUser ? (
           <p className="whitespace-pre-wrap">{message}</p>
         ) : (
-          <ReactMarkdown 
-            className="prose prose-sm max-w-none dark:prose-invert"
+          <ReactMarkdown
             components={{
               // Override styling for emergency warnings
               strong: ({node, ...props}) => (
