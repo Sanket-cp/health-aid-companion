@@ -63,14 +63,14 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// MediMate custom colors
+				// MediMate custom colors - changed from purple to orange
 				medimate: {
-					primary: '#9b87f5',
-					secondary: '#7E69AB',
-					tertiary: '#6E59A5',
+					primary: '#F97316', // Changed from #9b87f5 to orange
+					secondary: '#FB923C', // Changed from #7E69AB to lighter orange
+					tertiary: '#EA580C', // Changed from #6E59A5 to darker orange
 					dark: '#1A1F2C',
-					light: '#E5DEFF',
-					emergency: '#F97316',
+					light: '#FEF3E6', // Changed from #E5DEFF to light orange
+					emergency: '#F97316', // Kept as is since it was already orange
 					success: '#10B981',
 					warning: '#FBBF24',
 					error: '#EF4444',
